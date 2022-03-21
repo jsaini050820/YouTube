@@ -1,0 +1,61 @@
+#EC2 Actions
+
+
+CreateKeyPair
+CreateSecurityGroup
+AuthorizeSecurityGroupIngress
+AuthorizeSecurityGroupEgress
+CreateTags
+DescribeTags
+RunInstances
+
+
+#Lambda Code
+
+import json
+
+import boto3
+
+import time
+
+from botocore.exceptions import ClientError
+
+def lambda_handler(event, context):
+    # TODO implement
+    ec2_client = boto3.client('ec2')
+    
+    try:
+
+        response = ec2_client.run_instances(ImageId='ami-0c02fb55956c7d316',
+
+                                            InstanceType='t2.micro',
+
+                                            MinCount=1,
+
+                                            MaxCount=1)
+
+        print(response['Instances'][0],"EC2 Instance Created") 
+    
+        return {
+            'statusCode': 200,
+            'body': json.dumps('Hello from Lambda!')
+        }
+    except Exception as e:
+
+            print("Detailed error: ",e)
+
+            return {
+
+                    'statusCode': 500,
+
+                    'body': json.dumps("error")
+
+                    }
+  
+
+
+
+
+
+
+
