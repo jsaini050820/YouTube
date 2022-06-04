@@ -1,0 +1,17 @@
+#!/bin/bash
+yum update -y
+yum install -y httpd.x86_64
+systemctl start httpd.service
+systemctl enable httpd.service
+echo "Hello JasCloudtech from $(hostname -f)" > /var/www/html/index.html
+
+
+#!/bin/bash
+yum update -y
+yum install -y httpd.x86_64
+cd /var/www/html
+mkdir test
+echo "Hello Test  JasCloudtech from $(hostname -f)" > /var/www/html/test/index.html
+systemctl start httpd.service
+systemctl enable httpd.service
+
