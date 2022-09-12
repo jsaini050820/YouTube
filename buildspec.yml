@@ -1,0 +1,16 @@
+﻿version: 0.2
+
+env:
+  variables:
+    PROJECT: AWSPipeline
+    DOTNET_FRAMEWORK: 4.7.2
+phases:
+  build:
+    commands:
+      - nuget restore
+      - msbuild $env:PROJECT.csproj /p:TargetFrameworkVersion=v$env:DOTNET_FRAMEWORK /p:Configuration=Release /p:DeployIisAppPath="Default Web Site" /p:PackageAsSingleFile=false /p:OutDir=C:\codebuild\artifacts\ /t:Package
+artifacts:
+  files:
+    - '**/*'
+    - .ebextensions/**/*
+  base-directory: 'C:\codebuild\artifacts\_PublishedWebsites\${env:PROJECT}_Package\Archive\'
